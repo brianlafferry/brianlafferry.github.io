@@ -3,7 +3,7 @@
 	<title>XOR Neural Network</title>
 </head>
 <body>
-	<h4>XOR Neural Network (at least my understanding</h4>
+	<h4>XOR Neural Network (at least my understanding)</h4>
 	This is great stuff, too bad it's a step toward a destination rather than a solution.  What's really needed is Elman Recurrent Neural Network.  
 	But that's an extention of this Feed Forward Back Propigation network, so you must understand this to start recurrent networks.  And here's the downfall of this one.
 	Lets say you built a network to predict the market.  You want to put in the percent price change of minute data.
@@ -223,23 +223,30 @@ S(1.233212) = 0.774380
 	&delta;HW<sub>3</sub> = 0.635886 <br><br>
 	
 	To calculate the <i>gradient</i> for a given neuron: <br>
+		To calculate the <i>gradient</i> for a given neuron: <br>
 	&delta;IW<sub>1</sub> = H<sub>1 out</sub> *	(IW<sub>1</sub> + HW<sub>1</sub>) * &delta;O<sub>1</sub> <br>
-	0.731059 * (0.8 + 0.3) * 0.774380 = 0.622729  <br><br>
+	0.731059 * (0.8 + 0.3) * 0.774380 = 0.622729  <br>
+	&delta;IW<sub>1</sub> = f'(0.622729) = 0.650839 <br><br>
 
 	&delta;IW<sub>2</sub> = H<sub>2 out</sub> *	(IW<sub>2</sub> + HW<sub>2</sub>) * &delta;O<sub>1</sub> <br>
-	0.785835 * (0.4 + 0.5) * 0.774380 = 0.547681  <br><br>
+	0.785835 * (0.4 + 0.5) * 0.774380 = 0.547681  <br>
+	&delta;IW<sub>2</sub> = f'(0.547681) = 0.633597 <br><br>
 	
 	&delta;IW<sub>3</sub> = H<sub>3 out</sub> *	(IW<sub>3</sub> + HW<sub>3</sub>) * &delta;O<sub>1</sub> <br>
-	0.689974 * (0.3 + 0.9) * 0.774380 = 0.641162  <br><br>
+	0.689974 * (0.3 + 0.9) * 0.774380 = 0.641162  <br>
+	&delta;IW<sub>3</sub> = f'(0.641162) = 0.655016 <br><br>
 	
 	&delta;IW<sub>4</sub> = H<sub>1 out</sub> *	(IW<sub>4</sub> + HW<sub>1</sub>) * &delta;O<sub>1</sub> <br>
-	0.731059 * (0.2 + 0.3) * 0.774380 = 0.283059  <br><br>
+	0.731059 * (0.2 + 0.3) * 0.774380 = 0.283059  <br>
+	&delta;IW<sub>4</sub> = f'(0.283059) = 0.570296 <br><br>
 	
 	&delta;IW<sub>5</sub> = H<sub>2 out</sub> *	(IW<sub>5</sub> + HW<sub>2</sub>) * &delta;O<sub>1</sub> <br>
-	0.785835 * (0.9 + 0.5) * 0.774380 = 0.851949 <br><br>
+	0.785835 * (0.9 + 0.5) * 0.774380 = 0.851949 <br>
+	&delta;IW<sub>5</sub> = f'(0.851949) = 0.700976 <br><br>
 	
 	&delta;IW<sub>6</sub> = H<sub>3 out</sub> *	(IW<sub>6</sub> + HW<sub>3</sub>) * &delta;O<sub>1</sub> <br>
-	0.689974 * (0.5 + 0.9) * 0.774380 = 0.748023  <br><br>
+	0.689974 * (0.5 + 0.9) * 0.774380 = 0.748023  <br>
+	&delta;IW<sub>6</sub> = f'(0.748023) = 0.678748  <br><br>
 	
 	
 	<p>	1 <i>epoch</i> = once through the training data <br><br>
