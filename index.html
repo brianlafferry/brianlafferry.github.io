@@ -3,7 +3,7 @@
 	<title>XOR Neural Network</title>
 </head>
 <body>
-	<h4>XOR Neural Network (at least my understanding)</h4>
+	<h4>XOR Neural Network (at least my understanding</h4>
 	This is great stuff, too bad it's a step toward a destination rather than a solution.  What's really needed is Elman Recurrent Neural Network.  
 	But that's an extention of this Feed Forward Back Propigation network, so you must understand this to start recurrent networks.  And here's the downfall of this one.
 	Lets say you built a network to predict the market.  You want to put in the percent price change of minute data.
@@ -196,57 +196,104 @@ S(1.233212) = 0.774380
 	
 	https://www.youtube.com/watch?v=p1-FiWjThs8&t=26s<br><br>
 	
-	Output change = <i>delta</i>O<sub>1</sub> = &delta;O<sub>1</sub> = f'(O<sub>1</sub>) = derivative of <i>O<sub>1</sub></i><br>
-	<i>E</i>rror * &delta;O<sub>1</sub></i><br>
-	&delta;O<sub>1</sub> = <i>E</i>rror * f'(<i>O<sub>1 Sum</sub></i>)<br>
-	&delta;O<sub>1</sub> = 0.77 * f'(1.233212)<br>
-	&delta;O<sub>1</sub> = The total change at the output neuron = 0.774380
+	Output Sum Margin of Error = O<sub>E</sub> = expected value - calculated value <br>
+	O<sub>E</sub> = 0 - 0.774380 <br> <br>
+	
+	O<sub>sum</sub> = (H<sub>1 out</sub> * HW<sub>1</sub>) + (H<sub>2 out</sub> * HW<sub>2</sub>) + (H<sub>3 out</sub> * HW<sub>3</sub> <br>
+	(0.731059*0.3)+(0.785835*0.5)+(0.689974*0.9) = 1.233212 <br>
+	0.219318 + 0.392917 + 0.620977 = 1.233212 <br>
+	O<sub>sum</sub> = 1.233212 
+	
+	<p> In the code above, the variable <i>sigderivative</i> is also called the <i>sigmoid prime</i>(S') </p>
+	
+	Delta Output Sum = S'(O<sub>sum</sub>) * Output Sum Margin of Error <br>
+	&Delta;<sub>sum</sub> = S'(1.233212) * -0.774380 <br>
+	&Delta;<sub>sum</sub> = 0.174715 * -0.774380 <br>
+	&Delta;<sub>sum</sub> =  -0.135296 <br> <br>
+	
+	&Delta;W = &Delta;<sub>sum</sub> / H<sub>out</sub> <br>
+	&Delta;W<sub>1</sub> = &Delta;<sub>sum</sub> / H<sub>1 out</sub> <br>
+	&Delta;W<sub>1</sub> = -0.135296 / 0.731059 <br>
+	&Delta;W<sub>1</sub> = -0.185069 <br> <br>
+
+	&Delta;W<sub>2</sub> = &Delta;<sub>sum</sub> / H<sub>2 out</sub> <br>
+	&Delta;W<sub>2</sub> = -0.135296 / 0.785835 <br>
+	&Delta;W<sub>2</sub> = -0.172168  <br> <br>
+	
+	&Delta;W<sub>3</sub> = &Delta;<sub>sum</sub> / H<sub>3 out</sub> <br>
+	&Delta;W<sub>3</sub> = -0.135296 / 0.689974 <br>
+	&Delta;W<sub>3</sub> = -0.196089  <br> <br>
+	
+	HW<sub>new</sub> = HW + &Delta;W
+	HW<sub>1 new</sub> = HW<sub>1 old</sub> + &Delta;W<sub>1</sub> <br>
+	HW<sub>1 new</sub> = 0.03 + -0.135296 <br>
+	HW<sub>1 new</sub> = 0.105296 <br><br>
+	
+	HW<sub>2 new</sub> = HW<sub>2 old</sub> + &Delta;W<sub>2</sub> <br>
+	HW<sub>2 new</sub> = 0.05 + -0.172168 <br>
+	HW<sub>2 new</sub> = 0.122168   <br><br>
+
+	HW<sub>3 new</sub> = HW<sub>3 old</sub> + &Delta;W<sub>3</sub> <br>
+	HW<sub>3 new</sub> = 0.09 + -0.196089 <br>
+	HW<sub>3 new</sub> = 0.106089   <br><br>
+	
+	(H<sub>1 out</sub> * HW<sub>1 old</sub>) * S'(I<sub>1</sub>) <br>
+	(0.731059 * 0.3) * S'(1) <br>
+	(0.731059 * 0.3) * 0.196612 <br>
+	0.219318 * 0.196612 = 0.043121 <br>
+	IW<sub>1 new</sub> = IW<sub>1 old</sub> - 0.043121 <br>
+	IW<sub>1 new</sub> = 0.8 - 0.043121 = 0.756879 <br><br>
+	
+	(H<sub>2 out</sub> * HW<sub>2 old</sub>) * S'(I<sub>1</sub>) <br>
+	(0.785835 * 0.4) * S'(1) <br>
+	(0.785835 * 0.4) *  0.196612 <br>
+	0.314334 * 0.785835 =  0.061802<br>
+	IW<sub>2 new</sub> = IW<sub>2 old</sub> - 0.247015 <br>
+	IW<sub>2 new</sub> = 0.4 - 0.061802 = 0.338198  <br><br>
+	
+	(H<sub>3 out</sub> * HW<sub>3 old</sub>) * S'(I<sub>1</sub>) <br>
+	(0.689974 * 0.3) * S'(1) <br>
+	(0.689974 * 0.3) *  0.196612 <br>
+	0.206992 * 0.196612 =  0.040697 <br>
+	IW<sub>3 new</sub> = IW<sub>3 old</sub> - 0.040697 <br>
+	IW<sub>3 new</sub> = 0.3 - 0.040697 = 0.259303 <br><br>
+	
+	(H<sub>1 out</sub> * HW<sub>1 old</sub>) * S'(I<sub>2</sub>) <br>
+	(0.731059 * 0.2) * S'(1) <br>
+	(0.731059 * 0.2) * 0.196612 <br>
+	0.146212 * 0.196612 = 0.028747 <br>
+	IW<sub>4 new</sub> = IW<sub>4 old</sub> - 0.028747 <br>
+	IW<sub>4 new</sub> = 0.2 - 0.028747 = 0.171253  <br><br>
+	
+	(H<sub>2 out</sub> * HW<sub>2 old</sub>) * S'(I<sub>2</sub>) <br>
+	(0.785835 * 0.9) * S'(1) <br>
+	(0.785835 * 0.9) *  0.196612 <br>
+	0.707251 * 0.785835 =  0.555783 <br>
+	IW<sub>5 new</sub> = IW<sub>5 old</sub> - 0.555783 <br>
+	IW<sub>5 new</sub> = 0.9 - 0.555783 = 0.344217  <br><br>
+	
+	(H<sub>3 out</sub> * HW<sub>3 old</sub>) * S'(I<sub>1</sub>) <br>
+	(0.689974 * 0.5) * S'(1) <br>
+	(0.689974 * 0.5) *  0.196612 <br>
+	0.344987 * 0.196612 =  0.067829 <br>
+	IW<sub>3 new</sub> = IW<sub>6 old</sub> - 0.067829 <br>
+	IW<sub>3 new</sub> = 0.5 - 0.067829 = 0.432171 <br><br>
 	
 	<p>
-	The formulas are slightly different for calculating the change of each neuron. <br>
-	For every neuron, the formula is the derivative of (sum<sub>i</sub> times the sum of the weights (toward the output layer) times &delta;O<sub>1</sub>) <br><br>
-	
-	For HW<sub>1</sub>, f'(H<sub>1 sum</sub> * HW<sub>1</sub> * &delta;O<sub>1</sub>) <br>
-	&delta;HW<sub>1</sub> = f'(H<sub>1 sum</sub> * HW<sub>1</sub> * &delta;<sub>O</sub>) <br>
-	&delta;HW<sub>1</sub> = f'(1 * 0.3 * 0.774380) <br>
-	&delta;HW<sub>1</sub> = f'(0.232314) <br>
-	&delta;HW<sub>1</sub> = 0.557819 <br><br>
-	
-	&delta;HW<sub>2</sub> = f'(H<sub>2 sum</sub> * HW<sub>2</sub> * &delta;O<sub>1</sub>) <br>
-	&delta;HW<sub>2</sub> = f'(1.3 * 0.8 * 0.774380) <br>
-	&delta;HW<sub>2</sub> = f'(0.805355) <br>
-	&delta;HW<sub>2</sub> = 0.691119 <br><br>
-
-	&delta;HW<sub>3</sub> = f'(H<sub>3 sum</sub> * HW<sub>3</sub> * &delta;O<sub>1</sub>) <br>
-	&delta;HW<sub>3</sub> = f'(0.8 * 0.9 * 0.774380) <br>
-	&delta;HW<sub>3</sub> = f'(0.557554) <br>
-	&delta;HW<sub>3</sub> = 0.635886 <br><br>
-	
-	To calculate the <i>gradient</i> for input weights: <br>
-	&delta;IW<sub>1</sub> = H<sub>1 out</sub> *	(IW<sub>1</sub> + HW<sub>1</sub>) * &delta;O<sub>1</sub> <br>
-	0.731059 * (0.8 + 0.3) * 0.774380 = 0.622729  <br>
-	&delta;IW<sub>1</sub> = f'(0.622729) = 0.650839 <br><br>
-
-	&delta;IW<sub>2</sub> = H<sub>2 out</sub> *	(IW<sub>2</sub> + HW<sub>2</sub>) * &delta;O<sub>1</sub> <br>
-	0.785835 * (0.4 + 0.5) * 0.774380 = 0.547681  <br>
-	&delta;IW<sub>2</sub> = f'(0.547681) = 0.633597 <br><br>
-	
-	&delta;IW<sub>3</sub> = H<sub>3 out</sub> *	(IW<sub>3</sub> + HW<sub>3</sub>) * &delta;O<sub>1</sub> <br>
-	0.689974 * (0.3 + 0.9) * 0.774380 = 0.641162  <br>
-	&delta;IW<sub>3</sub> = f'(0.641162) = 0.655016 <br><br>
-	
-	&delta;IW<sub>4</sub> = H<sub>1 out</sub> *	(IW<sub>4</sub> + HW<sub>1</sub>) * &delta;O<sub>1</sub> <br>
-	0.731059 * (0.2 + 0.3) * 0.774380 = 0.283059  <br>
-	&delta;IW<sub>4</sub> = f'(0.283059) = 0.570296 <br><br>
-	
-	&delta;IW<sub>5</sub> = H<sub>2 out</sub> *	(IW<sub>5</sub> + HW<sub>2</sub>) * &delta;O<sub>1</sub> <br>
-	0.785835 * (0.9 + 0.5) * 0.774380 = 0.851949 <br>
-	&delta;IW<sub>5</sub> = f'(0.851949) = 0.700976 <br><br>
-	
-	&delta;IW<sub>6</sub> = H<sub>3 out</sub> *	(IW<sub>6</sub> + HW<sub>3</sub>) * &delta;O<sub>1</sub> <br>
-	0.689974 * (0.5 + 0.9) * 0.774380 = 0.748023  <br>
-	&delta;IW<sub>6</sub> = f'(0.748023) = 0.678748  <br><br>
-	
+		<table border = 1> 
+			<tr> <th> </th><th>Old</th> <th>New</th></tr>
+			<tr> <td>IW<sub>1 </sub></td> <td> 0.8</td> <td>0.756879 </td></tr>
+			<tr> <td> IW<sub>2</sub></td> <td>0.4 </td> <td> 0.338198 </td></tr>
+			<tr> <td> IW<sub>3</sub> </td> <td> 0.3</td> <td> 0.259303</td></tr>
+			<tr> <td> IW<sub>4 </sub></td> <td>0.2 </td> <td> 0.171253 </td></tr>
+			<tr> <td> IW<sub>5</sub> </td> <td> 0.9</td> <td> 0.344217</td></tr>
+			<tr> <td> IW<sub>6</sub></td> <td> 0.5</td> <td>0.432171 </td></tr>
+			<tr> <td>HW<sub>1</sub> </td>  <td>0.3 </td> <td> 0.105296  </td></tr>
+			<tr> <td> HW<sub>2</sub></td> <td> 0.5</td> <td> 0.122168  </td></tr>
+			<tr> <td> HW<sub>3</sub></td> <td>0.9 </td> <td> 0.106089 </td></tr>
+		</table>
+	</p>
+	Note how the larger numbers dropped more sugnificantly than the smaller numbers
 	
 	<p>	1 <i>epoch</i> = once through the training data <br><br>
 	
