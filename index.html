@@ -52,12 +52,12 @@
 			<tr><td>f'(H<sub>3 Out</sub>) </td><td> Derivative of hidden layer lower neuron output</td></tr>
 			<tr><td>HW<sub>3</sub> </td><td> Hidden layer lower neuron weight</td></tr> 
 		
-			<tr><td>IW<sub>1</sub>  </td><td>Input neuron  weight 1</td></tr>
-			<tr><td>IW<sub>2</sub>  </td><td>Input neuron  weight 2</td></tr>
-			<tr><td>IW<sub>3</sub>  </td><td>Input neuron  weight 3</td></tr>
-			<tr><td>IW<sub>4</sub>  </td><td>Input neuron  weight 4</td></tr>
-			<tr><td>IW<sub>5</sub>  </td><td>Input neuron  weight 5</td></tr>
-			<tr><td>IW<sub>6</sub>  </td><td>Input neuron  weight 6</td></tr>
+			<tr><td>IW<sub>1</sub>  </td><td>Input neuron weight 1 </td></tr>
+			<tr><td>IW<sub>2</sub>  </td><td>Input neuron weight 2</td></tr>
+			<tr><td>IW<sub>3</sub>  </td><td>Input neuron weight 3</td></tr>
+			<tr><td>IW<sub>4</sub>  </td><td>Input neuron weight 4</td></tr>
+			<tr><td>IW<sub>5</sub>  </td><td>Input neuron weight 5</td></tr>
+			<tr><td>IW<sub>6</sub>  </td><td>Input neuron weight 6</td></tr>
 		
 			<tr><td>I<sub>1</sub> </td><td>Input 1 </td></tr>
 			<tr><td>I<sub>2</sub> </td> <td>Input 2</td> </tr>
@@ -202,85 +202,101 @@ S(1.233212) = 0.774380
 	O<sub>sum</sub> = (H<sub>1 out</sub> * HW<sub>1</sub>) + (H<sub>2 out</sub> * HW<sub>2</sub>) + (H<sub>3 out</sub> * HW<sub>3</sub> <br>
 	(0.731059*0.3)+(0.785835*0.5)+(0.689974*0.9) = 1.233212 <br>
 	0.219318 + 0.392917 + 0.620977 = 1.233212 <br>
-	O<sub>sum</sub> = 1.233212 
+	O<sub>sum</sub> = 1.233212 <br>
+	S(1.233212) = 0.774380
 	
 	<p> In the code above, the variable <i>sigderivative</i> is also called the <i>sigmoid prime</i>(S') </p>
 	
-	Delta Output Sum = S'(O<sub>sum</sub>) * Output Sum Margin of Error <br>
-	&Delta;<sub>sum</sub> = S'(1.233212) * -0.774380 <br>
-	&Delta;<sub>sum</sub> = 0.174715 * -0.774380 <br>
-	&Delta;<sub>sum</sub> =  -0.135296 <br> <br>
+	Delta <sub>output weights</sub> = S'(O<sub>sum</sub>) * Output Sum Margin of Error <br>
+	&Delta;<sub>output weights</sub> = S'(1.233212) * -0.774380 <br>
+	&Delta;<sub>output weights</sub> = 0.174715 * -0.774380 <br>
+	&Delta;<sub>output weights</sub> =  -0.135296 <br> <br>
 	
-	HW<sub>new</sub> = HW + &Delta;W <br>
-	HW<sub>1 new</sub> = HW<sub>1 old</sub> + &Delta;W<sub>1</sub> <br>
-	HW<sub>1 new</sub> = 0.03 + -0.135296 <br>
-	HW<sub>1 new</sub> = 0.105296 <br><br>
+	<p>
+	&Delta;<sub>1 output weights</sub> = &Delta;<sub>output weights</sub> / H<sub>output</sub> <br>
+	&Delta;<sub>1 output weights</sub> = &Delta;<sub>output weights</sub> / H<sub>1 output</sub> <br>
+	&Delta;<sub>1 output weights</sub> = -0.135296 / 0.731059 <br>
+	&Delta;<sub>1 output weights</sub> = -0.18506851 <br>
+	HW<sub>1 new</sub> = HW<sub>1 old</sub> + &Delta;<sub>1 output weights</sub> <br>
+	HW<sub>1 new</sub> = 0.3 + -0.18506 <br>
+	HW<sub>1 new</sub> = 0.11493 <br>
+	</p>
 	
-	HW<sub>2 new</sub> = HW<sub>2 old</sub> + &Delta;W<sub>2</sub> <br>
-	HW<sub>2 new</sub> = 0.05 + -0.172168 <br>
-	HW<sub>2 new</sub> = 0.122168   <br><br>
-
-	HW<sub>3 new</sub> = HW<sub>3 old</sub> + &Delta;W<sub>3</sub> <br>
-	HW<sub>3 new</sub> = 0.09 + -0.196089 <br>
-	HW<sub>3 new</sub> = 0.106089   <br><br>
+	<p>
+	&Delta;<sub>2 output weights</sub> = &Delta;<sub>output weights</sub> / H<sub>2 output</sub> <br>
+	&Delta;<sub>2 output weights</sub> = -0.135296 / 0.785835 <br>
+	&Delta;<sub>2 output weights</sub> = -0.172168458 <br>
+	HW<sub>2 new</sub> = HW<sub>2 old</sub> + &Delta;<sub>2 output weights</sub> <br>
+	HW<sub>2 new</sub> = 0.5 + -0.17216 <br>
+	HW<sub>2 new</sub> = 0.32783 <br>
+	</p>	
 	
-	(H<sub>1 out</sub> * HW<sub>1 old</sub>) * S'(I<sub>1</sub>) <br>
-	(0.731059 * 0.3) * S'(1) <br>
-	(0.731059 * 0.3) * 0.196612 <br>
-	0.219318 * 0.196612 = 0.043121 <br>
-	IW<sub>1 new</sub> = IW<sub>1 old</sub> - 0.043121 <br>
-	IW<sub>1 new</sub> = 0.8 - 0.043121 = 0.756879 <br><br>
+	<p>
+	&Delta;<sub>3 output weights</sub> = &Delta;<sub>output weights</sub> / H<sub>3 output</sub> <br>
+	&Delta;<sub>3 output weights</sub> = -0.135296 / 0.689974 <br>
+	&Delta;<sub>3 output weights</sub> = -0.19608 <br>
+	HW<sub>3 new</sub> = HW<sub>3 old</sub> + &Delta;<sub>3 output weights</sub> <br>
+	HW<sub>3 new</sub> = 0.9 + -0.19608 <br>
+	HW<sub>3 new</sub> = 0.70391 <br>
+	</p>	
 	
-	(H<sub>2 out</sub> * HW<sub>2 old</sub>) * S'(I<sub>1</sub>) <br>
-	(0.785835 * 0.4) * S'(1) <br>
-	(0.785835 * 0.4) *  0.196612 <br>
-	0.314334 * 0.785835 =  0.061802<br>
-	IW<sub>2 new</sub> = IW<sub>2 old</sub> - 0.247015 <br>
-	IW<sub>2 new</sub> = 0.4 - 0.061802 = 0.338198  <br><br>
+	<p>
+	&Delta;<sub>1 input weights</sub> = delta output sum / HW<sub>1 old</sub> * S'(H<sub>1 sum</sub>) <br>
+	&Delta;<sub>1 input weights</sub> = -0.135296 / 0.3 * S'(1) <br>
+	&Delta;<sub>1 input weights</sub> = -0.135296 / 0.3 * 0.196612 <br>
+	&Delta;<sub>1 input weights</sub> = -0.088669 <br>
+	IW<sub>1 new</sub> = IW<sub>1 old</sub> + &Delta;<sub>1 input weights</sub> <br>
+	IW<sub>1 new</sub> = 0.8 + -0.08866 <br>
+	IW<sub>1 new</sub> = 0.71133 <br> <br>
 	
-	(H<sub>3 out</sub> * HW<sub>3 old</sub>) * S'(I<sub>1</sub>) <br>
-	(0.689974 * 0.3) * S'(1) <br>
-	(0.689974 * 0.3) *  0.196612 <br>
-	0.206992 * 0.196612 =  0.040697 <br>
-	IW<sub>3 new</sub> = IW<sub>3 old</sub> - 0.040697 <br>
-	IW<sub>3 new</sub> = 0.3 - 0.040697 = 0.259303 <br><br>
+	IW<sub>4 new</sub> = IW<sub>4 old</sub> + &Delta;<sub>1 input weights</sub> <br>
+	IW<sub>4 new</sub> = 0.2 + -0.08866 <br>
+	IW<sub>4 new</sub> = 0.11133 <br> <br>
+	</p>
 	
-	(H<sub>1 out</sub> * HW<sub>1 old</sub>) * S'(I<sub>2</sub>) <br>
-	(0.731059 * 0.2) * S'(1) <br>
-	(0.731059 * 0.2) * 0.196612 <br>
-	0.146212 * 0.196612 = 0.028747 <br>
-	IW<sub>4 new</sub> = IW<sub>4 old</sub> - 0.028747 <br>
-	IW<sub>4 new</sub> = 0.2 - 0.028747 = 0.171253  <br><br>
+	<p>
+	&Delta;<sub>2 input weights</sub> = delta output sum / HW<sub>2 old</sub> * S'(H<sub>2 sum</sub>) <br>
+	&Delta;<sub>2 input weights</sub> = -0.135296 / 0.5 * S'(1.3) <br>
+	&Delta;<sub>2 input weights</sub> = -0.135296 / 0.5 * 0.168298 <br>
+	&Delta;<sub>2 input weights</sub> = -0.045540 <br>
+	IW<sub>2 new</sub> = IW<sub>2 old</sub> + &Delta;<sub>2 input weights</sub> <br>
+	IW<sub>2 new</sub> = 0.4 + -0.045540 <br>
+	IW<sub>2 new</sub> = 0.35446 <br> <br>
 	
-	(H<sub>2 out</sub> * HW<sub>2 old</sub>) * S'(I<sub>2</sub>) <br>
-	(0.785835 * 0.9) * S'(1) <br>
-	(0.785835 * 0.9) *  0.196612 <br>
-	0.707251 * 0.785835 =  0.555783 <br>
-	IW<sub>5 new</sub> = IW<sub>5 old</sub> - 0.555783 <br>
-	IW<sub>5 new</sub> = 0.9 - 0.555783 = 0.344217  <br><br>
+	IW<sub>5 new</sub> = IW<sub>5 old</sub> + &Delta;<sub>5 input weights</sub> <br>
+	IW<sub>5 new</sub> = 0.9 + -0.045540 <br>
+	IW<sub>5 new</sub> = 0.85446 <br> <br>
+	</p>
 	
-	(H<sub>3 out</sub> * HW<sub>3 old</sub>) * S'(I<sub>2</sub>) <br>
-	(0.689974 * 0.5) * S'(1) <br>
-	(0.689974 * 0.5) *  0.196612 <br>
-	0.344987 * 0.196612 =  0.067829 <br>
-	IW<sub>6 new</sub> = IW<sub>6 old</sub> - 0.067829 <br>
-	IW<sub>6 new</sub> = 0.5 - 0.067829 = 0.432171 <br><br>
+	<p>
+	&Delta;<sub>3 input weights</sub> = delta output sum / HW<sub>3 old</sub> * S'(H<sub>3 sum</sub>) <br>
+	&Delta;<sub>3 input weights</sub> = -0.135296 / 0.9 * S'(0.8) <br>
+	&Delta;<sub>3 input weights</sub> = -0.135296 / 0.9 * 0.213910 <br>
+	&Delta;<sub>3 input weights</sub> = -0.032157 <br>
+	IW<sub>3 new</sub> = IW<sub>3 old</sub> + &Delta;<sub>2 input weights</sub> <br>
+	IW<sub>3 new</sub> = 0.3 + -0.032157 <br>
+	IW<sub>3 new</sub> = 0.267843  <br> <br>
+	
+	IW<sub>6 new</sub> = IW<sub>6 old</sub> + &Delta;<sub>6 input weights</sub> <br>
+	IW<sub>6 new</sub> = 0.5 + -0.032157 <br>
+	IW<sub>6 new</sub> = 0.467843 <br> <br>
+	</p>
+	
 	
 	<p>
 		<table border = 1> 
 			<tr> <th> </th><th>Old</th> <th>New</th></tr>
-			<tr> <td>IW<sub>1 </sub></td> <td> 0.8</td> <td>0.756879 </td></tr>
-			<tr> <td> IW<sub>2</sub></td> <td>0.4 </td> <td> 0.338198 </td></tr>
-			<tr> <td> IW<sub>3</sub> </td> <td> 0.3</td> <td> 0.259303</td></tr>
-			<tr> <td> IW<sub>4 </sub></td> <td>0.2 </td> <td> 0.171253 </td></tr>
-			<tr> <td> IW<sub>5</sub> </td> <td> 0.9</td> <td> 0.344217</td></tr>
-			<tr> <td> IW<sub>6</sub></td> <td> 0.5</td> <td>0.432171 </td></tr>
-			<tr> <td>HW<sub>1</sub> </td>  <td>0.3 </td> <td> 0.105296  </td></tr>
-			<tr> <td> HW<sub>2</sub></td> <td> 0.5</td> <td> 0.122168  </td></tr>
-			<tr> <td> HW<sub>3</sub></td> <td>0.9 </td> <td> 0.106089 </td></tr>
+			<tr> <td> IW<sub>1 </sub> </td> <td> 0.8 </td> <td> 0.71133 </td></tr>
+			<tr> <td> IW<sub>2 </sub> </td> <td> 0.4 </td> <td> 0.35446 </td></tr>
+			<tr> <td> IW<sub>3 </sub> </td> <td> 0.3 </td> <td> 0.26784 </td></tr>
+			<tr> <td> IW<sub>4 </sub> </td> <td> 0.2 </td> <td> 0.11133 </td></tr>
+			<tr> <td> IW<sub>5 </sub> </td> <td> 0.9 </td> <td> 0.85446 </td></tr>
+			<tr> <td> IW<sub>6 </sub> </td> <td> 0.5 </td> <td> 0.46784 </td></tr>
+			<tr> <td> HW<sub>1 </sub> </td> <td> 0.3 </td> <td> 0.11493 </td></tr>
+			<tr> <td> HW<sub>2 </sub> </td> <td> 0.5 </td> <td> 0.32783 </td></tr>
+			<tr> <td> HW<sub>3 </sub> </td> <td> 0.9 </td> <td> 0.70391 </td></tr>
 		</table>
 	</p>
-	Note how the larger numbers dropped more sugnificantly than the smaller numbers
 	
 	<p>	1 <i>epoch</i> = once through the training data <br><br>
 	
