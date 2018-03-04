@@ -17,7 +17,8 @@
 	When this network sees 2.1 the first time, it will adjust weights to associate 2.1 to 3.6.  When it sees the last 2.1, it will begin trying to associate 2.1 with 2.7.  
 	A Elman Recurrent Neural Network has an additional layer called a <i>context</i> layer so it can know that 2.1 can be associated with 3.6 sometimes, but at other times associated with 2.7.  
 	Except for this extra layer, there really isn't much difference between Feed Forward and Elman Recurrent networks.
-	
+	<p><a href="https://github.com/brianlafferry/brianlafferry.github.io">Code for this project net1.c</a></p>
+
 	<p>The meaning (in logic) of xor (exclusive OR) means either or, not both, and not neither.  It uses the following truth table <br> <br>
 	<table align="center" border=1>
 		<tr><th>Inputs</th> <th>Outputs</th><th></th></tr>
@@ -219,7 +220,7 @@ S(1.233212) = 0.774380
 	&Delta;<sub>1 output weights</sub> = -0.18506 <br>
 	HW<sub>1 new</sub> = HW<sub>1 old</sub> + &Delta;<sub>1 output weights</sub> <br>
 	HW<sub>1 new</sub> = 0.3 + -0.18506 <br>
-	HW<sub>1 new</sub> = 0.11493 <br>
+	HW<sub>1 new</sub> = 0.114931 <br>
 	</p>
 	
 	<p>
@@ -228,8 +229,8 @@ S(1.233212) = 0.774380
 	&Delta;<sub>2 output weights</sub> = -0.172168458 <br>
 	HW<sub>2 new</sub> = HW<sub>2 old</sub> + &Delta;<sub>2 output weights</sub> <br>
 	HW<sub>2 new</sub> = 0.5 + -0.17216 <br>
-	HW<sub>2 new</sub> = 0.32783 <br>
-	</p>	
+	HW<sub>2 new</sub> = 0.327831 <br>
+	</p>
 	
 	<p>
 	&Delta;<sub>3 output weights</sub> = &Delta;<sub>output weights</sub> / H<sub>3 output</sub> <br>
@@ -237,21 +238,21 @@ S(1.233212) = 0.774380
 	&Delta;<sub>3 output weights</sub> = -0.19608 <br>
 	HW<sub>3 new</sub> = HW<sub>3 old</sub> + &Delta;<sub>3 output weights</sub> <br>
 	HW<sub>3 new</sub> = 0.9 + -0.19608 <br>
-	HW<sub>3 new</sub> = 0.70391 <br>
+	HW<sub>3 new</sub> = 0.703911 <br>
 	</p>	
 	
 	<p>
-	&Delta;<sub>1 input weights</sub> = delta output sum / HW<sub>1 old</sub> * S'(H<sub>1 sum</sub>) <br>
+	&Delta;<sub>1 input weights</sub> =  &Delta;<sub>output weights</sub> / HW<sub>1 old</sub> * S'(H<sub>1 sum</sub>) <br>
 	&Delta;<sub>1 input weights</sub> = -0.135296 / 0.3 * S'(1) <br>
 	&Delta;<sub>1 input weights</sub> = -0.135296 / 0.3 * 0.196612 <br>
 	&Delta;<sub>1 input weights</sub> = -0.088669 <br>
 	IW<sub>1 new</sub> = IW<sub>1 old</sub> + &Delta;<sub>1 input weights</sub> <br>
 	IW<sub>1 new</sub> = 0.8 + -0.08866 <br>
-	IW<sub>1 new</sub> = 0.71133 <br> <br>
+	IW<sub>1 new</sub> = 0.711331 <br> <br>
 	
 	IW<sub>4 new</sub> = IW<sub>4 old</sub> + &Delta;<sub>1 input weights</sub> <br>
 	IW<sub>4 new</sub> = 0.2 + -0.08866 <br>
-	IW<sub>4 new</sub> = 0.11133 <br> <br>
+	IW<sub>4 new</sub> = 0.111331 <br> <br>
 	</p>
 	
 	<p>
@@ -284,18 +285,37 @@ S(1.233212) = 0.774380
 	
 	
 	<p>
+	Interestingly, the code came up with some slightly different, and I think more accurate, answers.  Instead of calculating <i>delta output sum / HW<sub>3 old</sub> * S'(H<sub>3 sum</sub>)</i> I just substituted the formula in the code Code for this project <a href="https://github.com/brianlafferry/brianlafferry.github.io"> net1.c</a>
+	<table broder= 1>
+		<tr> <th>With Formula</th> <th>With Code</th></tr>
+		<tr><td>
 		<table border = 1> 
 			<tr> <th> </th><th>Old</th> <th>New</th></tr>
-			<tr> <td> IW<sub>1 </sub> </td> <td> 0.8 </td> <td> 0.71133 </td></tr>
+			<tr> <td> IW<sub>1 </sub> </td> <td> 0.8 </td> <td> 0.711331 </td></tr>
 			<tr> <td> IW<sub>2 </sub> </td> <td> 0.4 </td> <td> 0.35446 </td></tr>
 			<tr> <td> IW<sub>3 </sub> </td> <td> 0.3 </td> <td> 0.26784 </td></tr>
-			<tr> <td> IW<sub>4 </sub> </td> <td> 0.2 </td> <td> 0.11133 </td></tr>
+			<tr> <td> IW<sub>4 </sub> </td> <td> 0.2 </td> <td> 0.111331 </td></tr>
 			<tr> <td> IW<sub>5 </sub> </td> <td> 0.9 </td> <td> 0.85446 </td></tr>
 			<tr> <td> IW<sub>6 </sub> </td> <td> 0.5 </td> <td> 0.46784 </td></tr>
-			<tr> <td> HW<sub>1 </sub> </td> <td> 0.3 </td> <td> 0.11493 </td></tr>
-			<tr> <td> HW<sub>2 </sub> </td> <td> 0.5 </td> <td> 0.32783 </td></tr>
-			<tr> <td> HW<sub>3 </sub> </td> <td> 0.9 </td> <td> 0.70391 </td></tr>
+			<tr> <td> HW<sub>1 </sub> </td> <td> 0.3 </td> <td> 0.114931 </td></tr>
+			<tr> <td> HW<sub>2 </sub> </td> <td> 0.5 </td> <td> 0.327831 </td></tr>
+			<tr> <td> HW<sub>3 </sub> </td> <td> 0.9 </td> <td> 0.703911 </td></tr>
 		</table>
+		</td> <td>
+		<table border = 1> 
+			<tr> <th> </th><th>Old</th> <th>New</th></tr>
+			<tr> <td> IW<sub>1 </sub> </td> <td> 0.8 </td> <td>  0.711331 </td></tr>
+			<tr> <td> IW<sub>2 </sub> </td> <td> 0.4 </td> <td>  0.354460</td></tr>
+			<tr> <td> IW<sub>3 </sub> </td> <td> 0.3 </td> <td>  0.267843</td></tr>
+			<tr> <td> IW<sub>4 </sub> </td> <td> 0.2 </td> <td>  0.169919</td></tr>
+			<tr> <td> IW<sub>5 </sub> </td> <td> 0.9 </td> <td>  0.856321</td></tr>
+			<tr> <td> IW<sub>6 </sub> </td> <td> 0.5 </td> <td>  0.473981</td></tr>
+			<tr> <td> HW<sub>1 </sub> </td> <td> 0.3 </td> <td>  0.269919</td></tr>
+			<tr> <td> HW<sub>2 </sub> </td> <td> 0.5 </td> <td>  0.456321</td></tr>
+			<tr> <td> HW<sub>3 </sub> </td> <td> 0.9 </td> <td>  0.873981</td></tr>
+		</table>
+		</td></tr>
+	</table>
 	</p>
 	
 	<p>	1 <i>epoch</i> = once through the training data <br><br>
