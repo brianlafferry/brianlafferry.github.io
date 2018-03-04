@@ -14,7 +14,7 @@
 	If the code ever gets an output of more than 93% it will kick out.  It will usually find at least 1 output out of 1,000, and I sometimes noticed it finding a dozen or
 	so, sumetimes above 94%.  Occationally it will not find any weights to get above 93% accuracy.
 	</p>
-	
+	About the only thing I did diffenently in the code from the webpage was to change (3 places) lines like <i>wt[i][0] = wt[i][1] <b>+</b> (deltaoutwt / outs[j++]) ;</i> to subtract rather than add. <i>wt[i][0] = wt[i][1] <b>-</b> (deltaoutwt / outs[j++]) ;</i>.  I did this because instead of getting closer to the target, it was moving away from the target.
 	<p>Next step, after training sees weights that are more than 93% accurate, give it some test data knows the difference between 1,1 and other pairs of inputs.
 	</p>
 	<p><a href="index.html">Home</a></p>
