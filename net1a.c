@@ -30,7 +30,7 @@ int main(void)
 	Arguments:	None
 	Called By: 	None
 	Calls To: 	feedfwd
-				backprop
+				backprop 
 	Returns: 	None 	
 	Pseudocode:	Initialize the weights
 				Call feedfwd
