@@ -1,20 +1,24 @@
 <html>
 <head>
 	<title>XOR Neural Network</title>
-	<title>Brian Lafferry</title>
 </head>
 <body>
-	<p><a href="index.html">Home</a></p>
+	<p><a href="index.html">Home</a> <input type="hidden" name="author" value="Brian Lafferry"> </p>
 	<h5>net1b.c</h5>
 	<p>Though I didn't try really hard, one idea I had was to take one of those high scoring epochs and initialize the weights with those numbers.  NOT  Unsure if it can 
 	be done, but things didn't work out.
-	</p> 
+	</p>
 	<h5>net1a.c</h5>
 	<p>For 1,000 times, initialize the weights and make up to 1,000 adjustments to the weights.  <br>
 	If the code ever gets an output of more than 93% it will kick out.  It will usually find at least 1 output out of 1,000, and I sometimes noticed it finding a dozen or
 	so, sumetimes above 94%.  Occationally it will not find any weights to get above 93% accuracy.
 	</p>
-	About the only thing I did diffenently in the code from the webpage was to change (3 places) lines like <i>wt[i][0] = wt[i][1] <b>+</b> (deltaoutwt / outs[j++]) ;</i> to subtract rather than add. <i>wt[i][0] = wt[i][1] <b>-</b> (deltaoutwt / outs[j++]) ;</i>.  I did this because instead of getting closer to the target, it was moving away from the target.
+	About the only thing I did diffenently in the code from the webpage was to change (3 places) lines like <br>
+	<i>wt[i][0] = wt[i][1] <font color="red">+</font> (deltaoutwt / outs[j++]) ;</i> <br>
+	to subtract rather than add. <br>
+	<i>wt[i][0] = wt[i][1] <font color="red">-</font> (deltaoutwt / outs[j++]) ;</i>. <br>
+	I did this because instead of getting closer to the target, it was 	moving away from the target.
+	
 	<p>Next step, after training sees weights that are more than 93% accurate, give it some test data knows the difference between 1,1 and other pairs of inputs.
 	</p>
 	<p><a href="index.html">Home</a></p>
